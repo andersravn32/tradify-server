@@ -1,6 +1,7 @@
 const express = require("express");
 const http = require("http");
 const app = express();
+const database = require("./utilities/database");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const helmet = require("helmet");
