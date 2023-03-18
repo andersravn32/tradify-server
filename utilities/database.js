@@ -4,7 +4,7 @@ var connection = null;
 module.exports = {
   connect: async () => {
     // Create database connection
-    connection = await MongoClient.connect(process.env.MONGODB_URL);
+    connection = await MongoClient.connect(process.env.MONGODB);
 
     // If connection failed, throw error
     if (!connection) {

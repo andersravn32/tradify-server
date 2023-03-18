@@ -2,6 +2,7 @@ const express = require("express");
 const http = require("http");
 const app = express();
 const database = require("./utilities/database");
+const cors = require("cors");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -17,7 +18,7 @@ const init = async () => {
   database.connect();
 
   // Enable morgan as primary logger
-  app.use(morgan());
+  app.use(morgan("common"));
 
   // Enable helmet
   app.use(helmet());
