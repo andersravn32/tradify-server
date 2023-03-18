@@ -1,0 +1,23 @@
+{
+  "name": "tradify-server",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000t\u0000r\u0000a\u0000d\u0000i\u0000f\u0000y\u0000-\u0000s\u0000e\u0000r\u0000v\u0000e\u0000r\u0000\r\u0000 \u0000",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andersravn32/tradify-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andersravn32/tradify-server/issues"
+  },
+  "homepage": "https://github.com/andersravn32/tradify-server#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  }
+}
