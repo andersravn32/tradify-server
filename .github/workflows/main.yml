@@ -20,6 +20,9 @@ jobs:
         uses: actions/setup-node@v2
         with: 
           node-version: "16.x"
+      - name: 'Create env file'
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
       - name: Install dependencies
         run: npm install
       - name: Run server.js using pm2
