@@ -13,6 +13,7 @@ const init = async () => {
 
     server.listen(process.env.PORT)
     console.log("Server is listening at port "+ process.env.PORT)
+    console.log("CI Demo")
 }
 
 init();
