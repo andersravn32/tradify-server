@@ -7,7 +7,7 @@ dotenv.config();
 
 const server = http.createServer(app);
 
-app.get("*", (req, res)=> res.send("Hello world"))
+app.get("*", (req, res)=> res.send("Hello world from CI hell"))
 
 const init = async () => {
 
