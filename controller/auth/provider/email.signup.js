@@ -93,7 +93,7 @@ module.exports = async (req, res) => {
         upsert: true,
       }
     );
-    if (!refreshInsert.upsertedId) {
+    if (!refreshInsert.upsertedId && !refreshInsert.modifiedCount) {
       // Return error
       return res.json(
         compose.response(null, null, [
