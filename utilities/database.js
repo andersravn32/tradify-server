@@ -1,7 +1,8 @@
-import { MongoClient } from "mongodb";
-var connection: MongoClient | null = null;
+const { MongoClient } = require("mongodb");
 
-export default {
+var connection = null;
+
+module.exports = {
   connect: async () => {
     // Create database connection
     connection = await MongoClient.connect(process.env.MONGODB || "");

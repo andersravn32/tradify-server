@@ -1,9 +1,9 @@
-import express from "express";
-import database from "./utilities/database";
-import cors from "cors";
-import dotenv from "dotenv";
-import morgan from "morgan";
-import helmet from "helmet";
+const express = require("express");
+const database = require("./utilities/database");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const morgan = require("morgan");
+const helmet = require("helmet");
 
 const app = express();
 
@@ -12,7 +12,7 @@ const init = async () => {
   dotenv.config();
 
   // Create database connection pool
-  database.connect();
+  await database.connect();
 
   // Enable morgan as primary logger
   app.use(morgan("common"));

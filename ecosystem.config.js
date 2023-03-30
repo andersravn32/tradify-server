@@ -1,7 +1,7 @@
 module.exports = {
     apps : [{
       name: "tradify-server",
-      script: "./dist/index.js",
+      script: "./index.js",
       env: {
         NODE_ENV: "development",
       },
