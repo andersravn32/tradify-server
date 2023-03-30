@@ -27,10 +27,13 @@ const init = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
+  // Add main router
+  app.use(require("./routes"));
+
   // Listen to port provided as environment variable
   app.listen(process.env.PORT, () => {
     console.log("Server is ready for requests");
-  })
-}
+  });
+};
 
 init();
