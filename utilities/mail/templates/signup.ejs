@@ -1,0 +1,37 @@
+<html lang="da">
+  <%- include("../partials/Head.ejs") %>
+
+  <body>
+    <%- include("../partials/Header.ejs") %>
+
+    <div id="content">
+      <h1 style="font-size: 32px; margin-bottom: 16px">Hej!</h1>
+      <p style="margin-bottom:16px;">Kære <%= user.firstName%></p>
+      <p>Velkommen til Tradify! Vi er glade for at have dig med ombord.</p>
+      <p>
+        Som ny bruger har du adgang til vores platform, hvor du nemt kan
+        foretage handler med andre brugere, uden den klassiske frygt for at
+        blive snydt.
+      </p>
+      <p>
+        For at komme ordentligt igang skal du blot bekræfte din konto ved hjælp
+        af nedenstående link. Derefter er din konto bekræftet, og du kan dermed
+        komme igang med at handle!
+      </p>
+
+      <a
+        style="margin-top: 16px; margin-bottom: 16px; display:block;"
+        href="https://prod.tradify.dk/auth/callback/<%= data.token %>"
+        target="_blank"
+        >Bekræft min konto</a
+      >
+
+      <p style="margin-bottom:32px;">Tak fordi du valgte Tradify, vi ser frem til at handle med dig!</p>
+
+      <p style="margin-bottom:16px;">Med venlige hilsner</p>
+      <p><i>Tradify Teamet</i></p>
+    </div>
+
+    <%- include("../partials/Footer.ejs") %>
+  </body>
+</html>
