@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const { validationResult } = require("express-validator");
+const mail = require("../../../utilities/mail");
 
 module.exports = async (req, res) => {
   const validatorErrors = validationResult(req);
@@ -98,6 +99,60 @@ module.exports = async (req, res) => {
       return res.json(
         compose.response(null, null, [
           { msg: "Internal server error", location: "refreshInsert" },
+        ])
+      );
+    }
+
+    // Create callback signup callback token
+    const callbackToken = jwt.sign(
+      {
+        type: "callback",
+        user: user.uuid,
+        callback: "https://tradify.dk",
+      },
+      process.env.JWT_CALLBACK,
+      {
+        expiresIn: process.env.JWT_CALLBACK_EXPIRES,
+      }
+    );
+
+    // Insert newly created callback token into database
+    const callbackInsert = await db.collection("tokens").replaceOne(
+      {
+        type: "callback",
+        user: user.uuid,
+      },
+      {
+        type: "callback",
+        action: "confirmEmail",
+        user: user.uuid,
+        token: callbackToken,
+      },
+      {
+        upsert: true,
+      }
+    );
+    if (!callbackInsert.upsertedId && !callbackInsert.modifiedCount) {
+      // Return error
+      return res.json(
+        compose.response(null, null, [
+          { msg: "Internal server error", location: "callbackInsert" },
+        ])
+      );
+    }
+
+    // Send callback confirmation email to user
+    const mailResult = await mail.send(
+      "Velkommen til Tradify!",
+      "Signup.ejs",
+      user,
+      { token: callbackToken }
+    );
+    if (!mailResult) {
+      // Return error
+      return res.json(
+        compose.response(null, null, [
+          { msg: "Internal server error", location: "callbackEmail" },
         ])
       );
     }
