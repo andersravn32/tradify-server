@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 
 // Provider based auth routes
 
@@ -29,4 +29,10 @@ router.use("/refresh", require("../controller/auth/refresh"));
 // URL: /auth/signout
 router.use("/signout", require("../controller/auth/signout"));
 
+// URL: /auth/callback/:token
+router.use(
+  "/callback/:token",
+  param("token").isJWT(),
+  require("../controller/auth/callback")
+);
 module.exports = router;
