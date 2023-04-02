@@ -5,8 +5,8 @@
     <%- include("../partials/Header.ejs") %>
 
     <div id="content">
-      <h1 style="font-size: 32px; margin-bottom: 16px">Hej!</h1>
-      <p style="margin-bottom:16px;">Kære <%= user.firstName%></p>
+      <h1 style="font-size: 2rem; margin-bottom: 1rem">Hej!</h1>
+      <p style="margin-bottom:1rem;">Kære <%= user.firstName%></p>
       <p>Velkommen til Tradify! Vi er glade for at have dig med ombord.</p>
       <p>
         Som ny bruger har du adgang til vores platform, hvor du nemt kan
@@ -20,15 +20,15 @@
       </p>
 
       <a
-        style="margin-top: 16px; margin-bottom: 16px; display:block;"
+        style="margin-top: 1rem; margin-bottom: 1rem; display:block;"
         href="https://prod.tradify.dk/auth/callback/<%= data.token %>"
         target="_blank"
         >Bekræft min konto</a
       >
 
-      <p style="margin-bottom:32px;">Tak fordi du valgte Tradify, vi ser frem til at handle med dig!</p>
+      <p style="margin-bottom:2rem;">Tak fordi du valgte Tradify, vi ser frem til at handle med dig!</p>
 
-      <p style="margin-bottom:16px;">Med venlige hilsner</p>
+      <p style="margin-bottom:1rem;">Med venlige hilsner</p>
       <p><i>Tradify Teamet</i></p>
     </div>
 
