@@ -107,6 +107,7 @@ module.exports = async (req, res) => {
     const callbackToken = jwt.sign(
       {
         type: "callback",
+        action: "confirmEmail",
         user: user.uuid,
         callback: "https://tradify.dk",
       },
@@ -124,7 +125,6 @@ module.exports = async (req, res) => {
       },
       {
         type: "callback",
-        action: "confirmEmail",
         user: user.uuid,
         token: callbackToken,
       },
