@@ -21,7 +21,7 @@
 
       <a
         style="margin-top: 1rem; margin-bottom: 1rem; display:block;"
-        href="https://prod.tradify.dk/auth/callback/<%= data.token %>"
+        href="<%= process.env.URL_BASE_BACKEND %>/auth/callback/<%= data.token %>"
         target="_blank"
         >Bekræft min konto</a
       >
