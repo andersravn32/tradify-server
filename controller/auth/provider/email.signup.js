@@ -144,7 +144,7 @@ module.exports = async (req, res) => {
     // Send callback confirmation email to user
     const mailResult = await mail.send(
       "Velkommen til Tradify!",
-      "Signup.ejs",
+      "signup.ejs",
       user,
       { token: callbackToken }
     );
