@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
     // Delete token from database
     const tokenDelete = await db
       .collection("tokens")
-      .deleteOne({ token: req.body.token });
+      .deleteOne({ token: req.body.token, type: "refresh" });
     if (!tokenDelete.deletedCount) {
       // Return error
       return res.json(
