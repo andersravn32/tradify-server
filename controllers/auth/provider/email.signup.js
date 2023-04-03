@@ -22,6 +22,11 @@ module.exports = async (req, res) => {
     email: req.body.email.toLowerCase(),
     password: await bcrypt.hash(req.body.password, 10),
     role: roles.guest,
+    profile: {
+      avatar: `${process.env.BASE_URL_BACKEND}/content/uploads/user.svg`,
+      cover: null,
+      bio: null,
+    },
   };
 
   try {
@@ -58,7 +63,7 @@ module.exports = async (req, res) => {
         user: user.uuid,
         email: user.email,
         identifier: user.identifier,
-        role: user.role
+        role: user.role,
       },
       process.env.JWT_AUTH,
       {
