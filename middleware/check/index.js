@@ -1,3 +1,5 @@
 module.exports = {
-    captcha: require("./captcha")
+    captcha: require("./captcha"),
+    auth: require("./auth"),
+    role: require("./role")
 }
