@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 const compose = require("../../utilities/compose");
 
-module.exports = (permissionLevel) => {
+module.exports = (role) => {
   return (req, res, next) => {
     const validatorErrors = validationResult(req);
     if (!validatorErrors.isEmpty()) {
@@ -9,7 +9,7 @@ module.exports = (permissionLevel) => {
     }
 
     // Ensure that user role is higher than or equal to that set as param
-    if (req.user.role.permissionLevel >= permissionLevel) {
+    if (req.user.role.permissionLevel >= role.permissionLevel) {
       return next();
     }
 
