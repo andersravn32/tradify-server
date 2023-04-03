@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
       permissionLevel: 0,
       title: null,
     },
+    trades: [],
   };
 
   try {
