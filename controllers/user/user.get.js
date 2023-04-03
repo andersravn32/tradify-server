@@ -12,24 +12,41 @@ module.exports = async (req, res) => {
     // Get database connection
     const db = database.get();
 
+    // Locate user data in database
     const user = await db
       .collection("users")
       .findOne({ uuid: req.params.uuid });
     delete user.password;
     delete user._id;
 
+    // If no user was found, return error
+    if (!user) {
+      return res.json(
+        compose.response(null, null, [
+          {
+            msg: "Failed to locate user info",
+            location: `user/${req.params.uuid}`,
+          },
+        ])
+      );
+    }
+
+    // Append user trades
     user.trades = await db
       .collection("trades")
       .find({
         $or: [
           {
             "from.uuid": req.params.uuid,
+            "from.confirmed": true,
           },
           {
             "to.uuid": req.params.uuid,
+            "to.confirmed": true,
           },
           {
             "middleman.uuid": req.params.uuid,
+            "middleman.confirmed": true,
           },
         ],
       })
