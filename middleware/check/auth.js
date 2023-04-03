@@ -3,43 +3,45 @@ const database = require("../../utilities/database");
 const compose = require("../../utilities/compose");
 const jwt = require("jsonwebtoken");
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   const validatorErrors = validationResult(req);
   if (!validatorErrors.isEmpty()) {
     return res.json(compose.response(null, null, validatorErrors.array()));
   }
 
   try {
-    // Extract token data from token provided as parameter
-    jwt.verify(req.body.token, process.env.JWT_REFRESH);
+    // Get token from request headers or request query
+    const token = jwt.verify(
+      req.headers.authorization || req.query.token,
+      process.env.JWT_AUTH
+    );
 
     // Get database connection
     const db = database.get();
 
-    // Delete token from database
-    const tokenDelete = await db
-      .collection("tokens")
-      .deleteOne({ token: req.body.token, type: "refresh" });
-    if (!tokenDelete.deletedCount) {
+    // Find user in database
+    const user = await db.collection("users").findOne({ uuid: token.user });
+    if (!user) {
       // Return error
       return res.json(
         compose.response(null, null, [
-          {
-            msg: "Failed to clear token from storage",
-            location: "tokenDelete",
-          },
+          { msg: "Failed to locate user", location: "user" },
         ])
       );
     }
+    delete user._id;
+    delete user.password;
 
-    // Return success message to user
-    return res.json(compose.response("signoutSuccess", null, null));
+    // Set user as request object
+    req.user = user;
+
+    // Complete middleware
+    next();
   } catch (error) {
-    console.log(error);
     // Return error
     return res.json(
       compose.response(null, null, [
-        { msg: "Internal server error", location: "trycatch", raw: error },
+        { msg: "Failed to validate JWT", location: "trycatch", raw: error },
       ])
     );
   }
