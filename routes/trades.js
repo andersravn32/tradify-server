@@ -13,7 +13,7 @@ router.post(
   body("description").isLength({ min: 25, max: 500 }),
   body("to").isObject(),
   body("middleman").isObject(),
-  require("../controller/trades/trades.post")
+  require("../controllers/trades/trades.post")
 );
 
 module.exports = router;

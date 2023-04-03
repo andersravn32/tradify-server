@@ -18,6 +18,23 @@ module.exports = async (req, res) => {
     delete user.password;
     delete user._id;
 
+    user.trades = await db
+      .collection("trades")
+      .find({
+        $or: [
+          {
+            "from.uuid": req.params.uuid,
+          },
+          {
+            "to.uuid": req.params.uuid,
+          },
+          {
+            "middleman.uuid": req.params.uuid,
+          },
+        ],
+      })
+      .toArray();
+
     // Return user object
     return res.json(compose.response(null, user, null));
   } catch (error) {

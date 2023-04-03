@@ -7,7 +7,7 @@ router.get(
   "/:id",
   check.auth,
   param("id").isMongoId(),
-  require("../controller/trade/trade.get")
+  require("../controllers/trade/trade.get")
 );
 
 module.exports = router;
