@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
     password: await bcrypt.hash(req.body.password, 10),
     role: roles.guest,
     profile: {
-      avatar: `${process.env.BASE_URL_BACKEND}/content/uploads/user.svg`,
+      avatar: `${process.env.URL_BASE_BACKEND}/content/uploads/user.svg`,
       cover: null,
       bio: null,
     },
@@ -152,6 +152,7 @@ module.exports = async (req, res) => {
       user,
       { token: callbackToken }
     );
+
     if (!mailResult) {
       // Return error
       return res.json(
