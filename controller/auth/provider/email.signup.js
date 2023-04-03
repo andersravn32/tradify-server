@@ -61,6 +61,7 @@ module.exports = async (req, res) => {
         user: user.uuid,
         email: user.email,
         identifier: user.identifier,
+        role: user.role
       },
       process.env.JWT_AUTH,
       {
