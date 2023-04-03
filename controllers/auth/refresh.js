@@ -50,6 +50,24 @@ module.exports = async (req, res) => {
     delete user.password;
     delete user._id;
 
+    // Append user trades
+    user.trades = await db
+      .collection("trades")
+      .find({
+        $or: [
+          {
+            "from.uuid": user.uuid,
+          },
+          {
+            "to.uuid": user.uuid,
+          },
+          {
+            "middleman.uuid": user.uuid,
+          },
+        ],
+      })
+      .toArray();
+
     // Create accessToken
     const accessToken = jwt.sign(
       {
@@ -57,7 +75,7 @@ module.exports = async (req, res) => {
         user: user.uuid,
         email: user.email,
         identifier: user.identifier,
-        role: user.role
+        role: user.role,
       },
       process.env.JWT_AUTH,
       {
