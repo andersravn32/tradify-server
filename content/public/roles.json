@@ -1,0 +1,22 @@
+{
+  "guest": {
+    "permissionLevel": 0,
+    "title": null
+  },
+  "member": {
+    "permissionLevel": 1,
+    "title": "Medlem"
+  },
+  "middleman": {
+    "permissionLevel": 2,
+    "title": "Mellemmand"
+  },
+  "moderator": {
+    "permissionLevel": 3,
+    "title": "Moderator"
+  },
+  "administrator": {
+    "permissionLevel": 4,
+    "title": "Administrator"
+  }
+}
