@@ -24,10 +24,18 @@ router.use(
 // General auth routes
 
 // URL: /auth/refresh
-router.use("/refresh", require("../controller/auth/refresh"));
+router.use(
+  "/refresh",
+  body("token").isJWT(),
+  require("../controller/auth/refresh")
+);
 
 // URL: /auth/signout
-router.use("/signout", require("../controller/auth/signout"));
+router.use(
+  "/signout",
+  body("token").isJWT(),
+  require("../controller/auth/signout")
+);
 
 // URL: /auth/callback/:token
 router.use(
