@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const { validationResult } = require("express-validator");
 const mail = require("../../../utilities/mail");
+const roles = require("../../../content/public/roles.json");
 
 module.exports = async (req, res) => {
   const validatorErrors = validationResult(req);
@@ -20,11 +21,7 @@ module.exports = async (req, res) => {
     identifier: req.body.identifier.toLowerCase(),
     email: req.body.email.toLowerCase(),
     password: await bcrypt.hash(req.body.password, 10),
-    role: {
-      permissionLevel: 0,
-      title: null,
-    },
-    trades: [],
+    role: roles.guest,
   };
 
   try {
