@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       // Return error
       return res.json(
         compose.response(null, null, [
-          { msg: "Invalid JWT", location: "callback" },
+          { msg: "Failed to clear token from storage", location: "callback" },
         ])
       );
     }
