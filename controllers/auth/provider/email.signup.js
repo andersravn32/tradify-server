@@ -15,9 +15,6 @@ module.exports = async (req, res) => {
 
   const user = {
     uuid: crypto.randomUUID(),
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    dob: req.body.dob,
     identifier: req.body.identifier.toLowerCase(),
     email: req.body.email.toLowerCase(),
     password: await bcrypt.hash(req.body.password, 10),
@@ -25,6 +22,9 @@ module.exports = async (req, res) => {
     profile: {
       avatar: `${process.env.URL_BASE_BACKEND}/content/uploads/user.svg`,
       cover: null,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      dob: req.body.dob,
       bio: null,
     },
   };
