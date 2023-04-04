@@ -19,6 +19,7 @@ module.exports = async (req, res) => {
     email: req.body.email.toLowerCase(),
     password: await bcrypt.hash(req.body.password, 10),
     role: roles.guest,
+    verified: false,
     profile: {
       avatar: `${process.env.URL_BASE_BACKEND}/content/uploads/user.svg`,
       cover: null,
