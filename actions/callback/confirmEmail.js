@@ -1,4 +1,5 @@
 const database = require("../../utilities/database");
+const roles = require("../../content/public/roles.json");
 
 module.exports = async (user) => {
   try {
@@ -8,10 +9,7 @@ module.exports = async (user) => {
     // Set user role to member in database
     const userUpdate = await db
       .collection("users")
-      .updateOne(
-        { uuid: user },
-        { $set: { role: { title: "Medlem", permissionLevel: 1 } } }
-      );
+      .updateOne({ uuid: user }, { $set: { role: roles.member } });
     if (!userUpdate.matchedCount) {
       return false;
     }
