@@ -51,23 +51,33 @@ module.exports = async (req, res) => {
       .collection("trades")
       .findOne({ _id: new ObjectId(req.params.id) });
 
+    // Ensure that requesting user is the creator of the trade, or an administrator
     if (!trade || !(trade.from.uuid == req.user.uuid)) {
-      // Return error
-      return res.json(
-        compose.response(null, null, [
-          { msg: "Cannot locate trade", location: "trade" },
-        ])
-      );
+      if (
+        !(req.user.role.permissionLevel >= roles.administrator.permissionLevel)
+      ) {
+        // Return error
+        return res.json(
+          compose.response(null, null, [
+            { msg: "Cannot locate trade", location: "trade" },
+          ])
+        );
+      }
     }
 
-    // Ensure that trade has not been started yet
+    // Ensure that trade has not started
     if (trade.to.confirmed || trade.middleman.confirmed) {
-      // Return error
-      return res.json(
-        compose.response(null, null, [
-          { msg: "Trade has already started", location: "trade" },
-        ])
-      );
+      // If trade has started, and user is not an administrator, return error
+      if (
+        !(req.user.role.permissionLevel >= roles.administrator.permissionLevel)
+      ) {
+        // Return error
+        return res.json(
+          compose.response(null, null, [
+            { msg: "Trade has already started", location: "trade" },
+          ])
+        );
+      }
     }
 
     // Ensure that no duplicate parameters are present
