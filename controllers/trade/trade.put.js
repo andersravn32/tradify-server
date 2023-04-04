@@ -150,25 +150,25 @@ module.exports = async (req, res) => {
       );
     }
 
+    // Update trade object
+    trade.title = req.body.title;
+    trade.description = req.body.description;
+    trade.to = {
+      uuid: req.body.to.uuid,
+      rating: trade.to.rating,
+      confirmed: trade.to.confirmed,
+    };
+    trade.middleman = {
+      uuid: req.body.middleman.uuid,
+      rating: trade.middleman.rating,
+      confirmed: trade.middleman.confirmed,
+    };
+
     // Update trade object with new data received from request body
     const tradeUpdate = await db.collection("trades").updateOne(
       { _id: new ObjectId(req.params.id) },
       {
-        $set: {
-          ...trade,
-          title: req.body.title,
-          description: req.body.description,
-          to: {
-            uuid: req.body.to.uuid,
-            rating: trade.to.rating,
-            confirmed: trade.to.confirmed,
-          },
-          middleman: {
-            uuid: req.body.middleman.uuid,
-            rating: trade.middleman.rating,
-            confirmed: trade.middleman.confirmed,
-          },
-        },
+        $set: trade,
       }
     );
     if (!tradeUpdate.acknowledged || !tradeUpdate.matchedCount) {
@@ -181,11 +181,7 @@ module.exports = async (req, res) => {
     }
 
     // Return trade id to user
-    return res.json(
-      compose.response(null, {
-        _id: trade._id,
-      })
-    );
+    return res.json(compose.response(null, trade, null));
   } catch (error) {
     console.log(error);
     // Return error
