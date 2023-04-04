@@ -104,6 +104,20 @@ module.exports = async (req, res) => {
       );
     }
 
+    // Update trade object
+    trade.title = req.body.title;
+    trade.description = req.body.description;
+    trade.to = {
+      uuid: req.body.to.uuid,
+      rating: trade.to.rating,
+      confirmed: trade.to.confirmed,
+    };
+    trade.middleman = {
+      uuid: req.body.middleman.uuid,
+      rating: trade.middleman.rating,
+      confirmed: trade.middleman.confirmed,
+    };
+
     // Locate user marked as receiver in database if user is present and role permissionLevel is higher than or equal member role
     const to =
       trade.to.uuid == null
@@ -149,20 +163,6 @@ module.exports = async (req, res) => {
         ])
       );
     }
-
-    // Update trade object
-    trade.title = req.body.title;
-    trade.description = req.body.description;
-    trade.to = {
-      uuid: req.body.to.uuid,
-      rating: trade.to.rating,
-      confirmed: trade.to.confirmed,
-    };
-    trade.middleman = {
-      uuid: req.body.middleman.uuid,
-      rating: trade.middleman.rating,
-      confirmed: trade.middleman.confirmed,
-    };
 
     // Update trade object with new data received from request body
     const tradeUpdate = await db.collection("trades").updateOne(
