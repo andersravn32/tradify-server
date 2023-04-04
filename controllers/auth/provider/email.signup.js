@@ -27,6 +27,12 @@ module.exports = async (req, res) => {
       dob: req.body.dob,
       bio: null,
     },
+    settings: {
+      notifications: {
+        app: true,
+        email: false,
+      },
+    },
   };
 
   try {
