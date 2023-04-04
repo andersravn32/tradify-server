@@ -64,9 +64,7 @@ module.exports = async (req, res) => {
 
     // Return message to user
     return res.json(
-      compose.response(null, null, [
-        { msg: "Trade deleted", location: "trade" },
-      ])
+      compose.response("Trade deleted", null, null)
     );
   } catch (error) {
     console.log(error);

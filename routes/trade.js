@@ -33,4 +33,20 @@ router.delete(
   require("../controllers/trade/trade.delete")
 );
 
+// URL: /trade/:id/accept
+router.use(
+  "/:id/accept",
+  check.auth,
+  param("id").isMongoId(),
+  require("../controllers/trade/trade.accept")
+);
+
+// URL: /trade/:id/reject
+router.use(
+  "/:id/reject",
+  check.auth,
+  param("id").isMongoId(),
+  require("../controllers/trade/trade.reject")
+);
+
 module.exports = router;
