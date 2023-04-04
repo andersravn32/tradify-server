@@ -35,10 +35,7 @@ module.exports = async (req, res) => {
     // Return error
     return res.json(
       compose.response(null, null, [
-        {
-          msg: "Located duplicate parameter: to",
-          location: "trade.to",
-        },
+        { msg: "Identical parameters: from.uuid, to.uuid", location: "trade" },
       ])
     );
   }
@@ -46,9 +43,17 @@ module.exports = async (req, res) => {
     // Return error
     return res.json(
       compose.response(null, null, [
+        { msg: "Identical parameters: from.uuid, to.uuid", location: "trade" },
+      ])
+    );
+  }
+  if (trade.to.uuid == trade.middleman.uuid) {
+    // Return error
+    return res.json(
+      compose.response(null, null, [
         {
-          msg: "Located duplicate parameter: middleman",
-          location: "trade.middleman",
+          msg: "Identical parameters: to.uuid, middleman.uuid",
+          location: "trade",
         },
       ])
     );
