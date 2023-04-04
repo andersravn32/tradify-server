@@ -1,9 +1,14 @@
 const { ObjectId } = require("mongodb");
-const actions = require("../../actions");
-const compose = require("../../utilities/compose");
-const database = require("../../utilities/database");
+const actions = require("../../../actions");
+const compose = require("../../../utilities/compose");
+const database = require("../../../utilities/database");
 
 module.exports = async (req, res) => {
+  const validatorErrors = validationResult(req);
+  if (!validatorErrors.isEmpty()) {
+    return res.json(compose.response(null, null, validatorErrors.array()));
+  }
+  
   try {
     // Get database connection
     const db = database.get();

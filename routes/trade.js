@@ -38,7 +38,7 @@ router.use(
   "/:id/accept",
   check.auth,
   param("id").isMongoId(),
-  require("../controllers/trade/trade.accept")
+  require("../controllers/trade/actions/trade.accept")
 );
 
 // URL: /trade/:id/reject
@@ -46,7 +46,18 @@ router.use(
   "/:id/reject",
   check.auth,
   param("id").isMongoId(),
-  require("../controllers/trade/trade.reject")
+  require("../controllers/trade/actions/trade.reject")
+);
+
+// URL: /trade/:id/rate
+router.use(
+  "/:id/rate",
+  check.auth,
+  param("id").isMongoId(),
+  body("rating").isObject(),
+  body("rating.value").isInt({ min: -1, max: 1 }),
+  body("rating.message").isLength({ min: 5, max: 250 }),
+  require("../controllers/trade/actions/trade.rate")
 );
 
 module.exports = router;

@@ -11,17 +11,17 @@ module.exports = async (req, res) => {
   const trade = {
     from: {
       uuid: req.user.uuid,
-      rating: 0,
+      rating: null,
       confirmed: true,
     },
     to: {
       uuid: req.body.to.uuid,
-      rating: 0,
+      rating: null,
       confirmed: false,
     },
     middleman: {
       uuid: req.body.middleman.uuid,
-      rating: 0,
+      rating: null,
       confirmed: false,
     },
     title: req.body.title,
