@@ -1,34 +1,30 @@
-const { validationResult } = require("express-validator");
+const { ObjectId } = require("mongodb");
+const actions = require("../../actions");
 const compose = require("../../utilities/compose");
 const database = require("../../utilities/database");
-const { ObjectId } = require("mongodb");
 
 module.exports = async (req, res) => {
-  const validatorErrors = validationResult(req);
-  if (!validatorErrors.isEmpty()) {
-    return res.json(compose.response(null, null, validatorErrors.array()));
-  }
-
   try {
     // Get database connection
     const db = database.get();
 
-    // Locate trade data in database
-    const tradeQuery = await db
+    // Locate trade in database
+    const trade = await db
       .collection("trades")
       .findOne({ _id: new ObjectId(req.params.id) });
 
-    if (!tradeQuery) {
+    // Use actions to accept trade
+    if (!(await actions.trade.reject(trade, req.user))) {
       // Return error
       return res.json(
         compose.response(null, null, [
-          { msg: "Failed to locate trade data", location: "trade" },
+          { msg: "Cannot reject trade", location: "trade" },
         ])
       );
     }
 
-    // Return trade data to user
-    return res.json(compose.response(null, tradeQuery, null));
+    // Return response
+    return res.json(compose.response("Rejected trade", null, null));
   } catch (error) {
     console.log(error);
     // Return error
