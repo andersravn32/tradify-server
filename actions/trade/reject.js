@@ -11,7 +11,7 @@ module.exports = async (trade, user) => {
   }
 
   // User has to role in trade
-  if (user.uuid == trade.from.uuid && !trade.to.confirmed) {
+  if (user.uuid == trade.to.uuid && !trade.to.confirmed) {
     query = {
       "to.uuid": null,
     };

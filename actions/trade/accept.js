@@ -13,7 +13,7 @@ module.exports = async (trade, user) => {
   }
 
   // User has to role in trade
-  if (user.uuid == trade.from.uuid && !trade.to.confirmed) {
+  if (user.uuid == trade.to.uuid && !trade.to.confirmed) {
     query = {
       "to.confirmed": true,
     };
@@ -46,7 +46,7 @@ module.exports = async (trade, user) => {
     if (!acceptQuery.modifiedCount) {
       return false;
     }
-
+    
     // If trade was accepted, return true
     return true;
   } catch (error) {
