@@ -15,13 +15,25 @@ module.exports = async (req, res) => {
 
   const user = {
     uuid: crypto.randomUUID(),
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    dob: req.body.dob,
     identifier: req.body.identifier.toLowerCase(),
     email: req.body.email.toLowerCase(),
     password: await bcrypt.hash(req.body.password, 10),
     role: roles.guest,
+    verified: false,
+    profile: {
+      avatar: `${process.env.URL_BASE_BACKEND}/content/uploads/user.svg`,
+      cover: null,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      dob: req.body.dob,
+      bio: null,
+    },
+    settings: {
+      notifications: {
+        app: true,
+        email: false,
+      },
+    },
   };
 
   try {
@@ -58,7 +70,7 @@ module.exports = async (req, res) => {
         user: user.uuid,
         email: user.email,
         identifier: user.identifier,
-        role: user.role
+        role: user.role,
       },
       process.env.JWT_AUTH,
       {
@@ -147,6 +159,7 @@ module.exports = async (req, res) => {
       user,
       { token: callbackToken }
     );
+
     if (!mailResult) {
       // Return error
       return res.json(

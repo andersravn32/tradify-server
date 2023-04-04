@@ -7,16 +7,20 @@
     "permissionLevel": 1,
     "title": "Medlem"
   },
-  "middleman": {
+  "premium": {
     "permissionLevel": 2,
+    "title": "Premium"
+  },
+  "middleman": {
+    "permissionLevel": 3,
     "title": "Mellemmand"
   },
   "moderator": {
-    "permissionLevel": 3,
+    "permissionLevel": 4,
     "title": "Moderator"
   },
   "administrator": {
-    "permissionLevel": 4,
+    "permissionLevel": 5,
     "title": "Administrator"
   }
 }
