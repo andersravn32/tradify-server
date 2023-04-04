@@ -11,7 +11,7 @@ router.use(
 router.use(
   "/uploads",
   check.auth,
-  express.static(path.join(__dirname, "../content/public"))
+  express.static(path.join(__dirname, "../content/uploads"))
 );
 
 module.exports = router;
