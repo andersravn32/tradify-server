@@ -21,7 +21,6 @@ module.exports = async (req, res) => {
 
     // Use actions to rate trade
     const action = await actions.trade.rate(trade, req.user, req.body.rating);
-    console.log(action)
     if (!action) {
       // Return error
       return res.json(
@@ -30,7 +29,7 @@ module.exports = async (req, res) => {
         ])
       );
     }
-    
+
     // Return response
     return res.json(compose.response("Rated trade", action, null));
   } catch (error) {
