@@ -1,4 +1,8 @@
 node_modules
 dist
 
+content/uploads/**.png
+content/uploads/**.jpg
+content/uploads/**.jpeg
+
 .env
