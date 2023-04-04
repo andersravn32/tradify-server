@@ -1,9 +1,10 @@
 module.exports = {
-    callback: {
-        confirmEmail: require("./callback/confirmEmail")
-    },
-    trade: {
-        accept: require("./trade/accept"),
-        reject: require("./trade/reject")
-    }
-}
+  callback: {
+    confirmEmail: require("./callback/confirmEmail"),
+  },
+  trade: {
+    accept: require("./trade/accept"),
+    reject: require("./trade/reject"),
+    rate: require("./trade/rate"),
+  },
+};
