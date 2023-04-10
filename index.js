@@ -14,6 +14,9 @@ const init = async () => {
   // Create database connection pool
   await database.connect();
 
+  // Set trust proxy flag
+  app.set("trust proxy", true);
+
   // Enable morgan as primary logger
   app.use(morgan("common"));
 
@@ -32,7 +35,7 @@ const init = async () => {
 
   // Listen to port provided as environment variable
   app.listen(process.env.PORT, () => {
-    console.log(process.env.NODE_ENV);
+    !process.env.NODE_ENV ? console.log("Server is ready for requests") : null;
   });
 };
 
