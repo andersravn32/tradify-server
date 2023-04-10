@@ -32,7 +32,7 @@ const init = async () => {
 
   // Listen to port provided as environment variable
   app.listen(process.env.PORT, () => {
-    console.log("Server is ready for requests");
+    console.log(process.env.NODE_ENV);
   });
 };
 
