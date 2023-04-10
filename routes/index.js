@@ -15,4 +15,8 @@ router.use("/trades", require("./trades"));
 
 // General user route
 router.use("/user", require("./user"));
+
+// General user route
+router.use("/users", require("./users"));
+
 module.exports = router;
