@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
     }
 
     // Return success message to user
-    return res.json(compose.response("signoutSuccess", null, null), null);
+    return res.json(compose.response("signoutSuccess", null, null));
   } catch (error) {
     console.log(error);
     // Return error
