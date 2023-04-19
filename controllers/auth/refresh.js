@@ -85,11 +85,15 @@ module.exports = async (req, res) => {
 
     // Return accessToken, refreshToken and user object to requesting user
     return res.json(
-      compose.response(null, {
-        accessToken,
-        refreshToken: req.body.token,
-        user,
-      })
+      compose.response(
+        null,
+        {
+          accessToken,
+          refreshToken: req.body.token,
+          user,
+        },
+        null
+      )
     );
   } catch (error) {
     console.log(error);
