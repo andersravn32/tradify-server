@@ -2,6 +2,7 @@ const { ObjectId } = require("mongodb");
 const actions = require("../../../actions");
 const compose = require("../../../utilities/compose");
 const database = require("../../../utilities/database");
+const { validationResult } = require("express-validator");
 
 module.exports = async (req, res) => {
   const validatorErrors = validationResult(req);
