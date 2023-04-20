@@ -33,7 +33,7 @@ module.exports = async (req, res, next) => {
     delete user.password;
 
     // Set user as request object
-    req.user = user;
+    res.locals.user = user;
 
     // Complete middleware
     next();

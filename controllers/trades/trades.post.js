@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   }
   const trade = {
     from: {
-      uuid: req.user.uuid,
+      uuid: res.locals.user.uuid,
       rating: null,
       confirmed: true,
     },
@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
   };
 
   // Ensure that no duplicate parameters are present
-  if (trade.to.uuid == req.user.uuid) {
+  if (trade.to.uuid == res.locals.user.uuid) {
     // Return error
     return res.json(
       compose.response(null, null, [
@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
       ])
     );
   }
-  if (trade.middleman.uuid == req.user.uuid) {
+  if (trade.middleman.uuid == res.locals.user.uuid) {
     // Return error
     return res.json(
       compose.response(null, null, [

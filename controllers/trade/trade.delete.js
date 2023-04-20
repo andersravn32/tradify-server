@@ -20,9 +20,9 @@ module.exports = async (req, res) => {
       .findOne({ _id: new ObjectId(req.params.id) });
 
     // Ensure that requesting user is the creator of the trade, or an administrator
-    if (!trade || !(trade.from.uuid == req.user.uuid)) {
+    if (!trade || !(trade.from.uuid == res.locals.user.uuid)) {
       if (
-        !(req.user.role.permissionLevel >= roles.administrator.permissionLevel)
+        !(res.locals.user.role.permissionLevel >= roles.administrator.permissionLevel)
       ) {
         // Return error
         return res.json(
@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
     if (trade.to.confirmed || trade.middleman.confirmed) {
       // If trade has started, and user is not an administrator, return error
       if (
-        !(req.user.role.permissionLevel >= roles.administrator.permissionLevel)
+        !(res.locals.user.role.permissionLevel >= roles.administrator.permissionLevel)
       ) {
         // Return error
         return res.json(

@@ -28,7 +28,7 @@ module.exports = (imageField) => {
       // Ensure that only admin users can change foreign images
       if (
         req.imageUser.uuid != req.params.uuid &&
-        !(req.user.role.permissionLevel >= roles.administrator.permissionLevel)
+        !(res.locals.user.role.permissionLevel >= roles.administrator.permissionLevel)
       ) {
         return res.json(
           compose.response(null, null, [
