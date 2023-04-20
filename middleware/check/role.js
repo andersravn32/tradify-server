@@ -9,7 +9,7 @@ module.exports = (role) => {
     }
 
     // Ensure that user role is higher than or equal to that set as param
-    if (res.locals.user.role.permissionLevel >= role.permissionLevel) {
+    if (req.user.role.permissionLevel >= role.permissionLevel) {
       return next();
     }
 
