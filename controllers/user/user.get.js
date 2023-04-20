@@ -31,6 +31,12 @@ module.exports = async (req, res) => {
       );
     }
 
+    // If request query ignoreTrades is present
+    if (req.query.ignoreTrades) {
+      // Return user object
+      return res.json(compose.response(null, user, null));
+    }
+
     // Append user trades
     user.trades = await db
       .collection("trades")
