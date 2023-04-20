@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { query } = require("express-validator");
+const { params } = require("express-validator");
 const check = require("../middleware/check");
 
 // URL: /users/?identifier=<user.identifier>
 router.get(
-  "/",
+  "/:identifier",
   check.auth,
-  query("identifier").isAlpha(),
+  params("identifier").isAlpha(),
   require("../controllers/users/users.get")
 );
 

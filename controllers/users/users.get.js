@@ -16,7 +16,12 @@ module.exports = async (req, res) => {
     // Locate users in database with query pattern
     const searchResult = await db
       .collection("users")
-      .find({ identifier: new RegExp(".*" + req.query.identifier + ".*", "i") })
+      .find({
+        $or: [
+          { identifier: new RegExp(".*" + req.params.identifier + ".*", "i") },
+          { email: new RegExp(".*" + req.params.identifier + ".*", "i") },
+        ],
+      })
       .limit(
         req.user.role.permissionLevel >= roles.administrator.permissionLevel
           ? 100
