@@ -26,8 +26,8 @@ const storage = multer.diskStorage({
 
     // Ensure that only admin users can change foreign images
     if (
-      res.locals.user.uuid != req.params.uuid &&
-      !(res.locals.user.role.permissionLevel >= roles.administrator.permissionLevel)
+      req.user.uuid != req.params.uuid &&
+      !(req.user.role.permissionLevel >= roles.administrator.permissionLevel)
     ) {
       return cb("Insufficient permissions", null);
     }
