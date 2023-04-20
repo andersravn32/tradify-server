@@ -26,8 +26,8 @@ module.exports = async (req, res) => {
 
     // Ensure that only admin users can change foreign profiles
     if (
-      req.user.uuid != req.params.uuid &&
-      !(req.user.role.permissionLevel >= roles.administrator.permissionLevel)
+      res.locals.user.uuid != req.params.uuid &&
+      !(res.locals.user.role.permissionLevel >= roles.administrator.permissionLevel)
     ) {
       return res.json(
         compose.response(null, null, [

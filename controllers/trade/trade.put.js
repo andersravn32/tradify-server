@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     return res.json(compose.response(null, null, validatorErrors.array()));
   }
 
-  if (req.body.to.uuid == req.user.uuid) {
+  if (req.body.to.uuid == res.locals.user.uuid) {
     // Return error
     return res.json(
       compose.response(null, null, [
@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
       ])
     );
   }
-  if (req.body.middleman.uuid == req.user.uuid) {
+  if (req.body.middleman.uuid == res.locals.user.uuid) {
     // Return error
     return res.json(
       compose.response(null, null, [
@@ -52,9 +52,9 @@ module.exports = async (req, res) => {
       .findOne({ _id: new ObjectId(req.params.id) });
 
     // Ensure that requesting user is the creator of the trade, or an administrator
-    if (!trade || !(trade.from.uuid == req.user.uuid)) {
+    if (!trade || !(trade.from.uuid == res.locals.user.uuid)) {
       if (
-        !(req.user.role.permissionLevel >= roles.administrator.permissionLevel)
+        !(res.locals.user.role.permissionLevel >= roles.administrator.permissionLevel)
       ) {
         // Return error
         return res.json(
@@ -69,7 +69,7 @@ module.exports = async (req, res) => {
     if (trade.to.confirmed || trade.middleman.confirmed) {
       // If trade has started, and user is not an administrator, return error
       if (
-        !(req.user.role.permissionLevel >= roles.administrator.permissionLevel)
+        !(res.locals.user.role.permissionLevel >= roles.administrator.permissionLevel)
       ) {
         // Return error
         return res.json(
@@ -81,7 +81,7 @@ module.exports = async (req, res) => {
     }
 
     // Ensure that no duplicate parameters are present
-    if (req.body.to.uuid == req.user.uuid) {
+    if (req.body.to.uuid == res.locals.user.uuid) {
       // Return error
       return res.json(
         compose.response(null, null, [
@@ -92,7 +92,7 @@ module.exports = async (req, res) => {
         ])
       );
     }
-    if (req.body.middleman.uuid == req.user.uuid) {
+    if (req.body.middleman.uuid == res.locals.user.uuid) {
       // Return error
       return res.json(
         compose.response(null, null, [

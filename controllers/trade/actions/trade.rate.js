@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
       .findOne({ _id: new ObjectId(req.params.id) });
 
     // Use actions to rate trade
-    const action = await actions.trade.rate(trade, req.user, req.body.rating);
+    const action = await actions.trade.rate(trade, res.locals.user, req.body.rating);
     if (!action) {
       // Return error
       return res.json(

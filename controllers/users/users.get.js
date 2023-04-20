@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
         ],
       })
       .limit(
-        req.user.role.permissionLevel >= roles.administrator.permissionLevel
+        res.locals.user.role.permissionLevel >= roles.administrator.permissionLevel
           ? 100
           : 10
       )
