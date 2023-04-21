@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
     verified: false,
     profile: {
       avatar: `${process.env.URL_BASE_BACKEND}/content/uploads/user.svg`,
-      cover: null,
+      cover: `${process.env.URL_BASE_BACKEND}/content/uploads/cover.jpg`,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       dob: req.body.dob,
