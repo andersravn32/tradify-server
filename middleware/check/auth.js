@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
 
     // Set user as token data
     req.user = {
-      uuid: token.uuid,
+      uuid: token.user,
       email: token.email,
       identifier: token.identifier,
       role: token.role,
