@@ -1,5 +1,6 @@
 const database = require("../../utilities/database");
 const { ObjectId } = require("mongodb");
+const mail = require("../../utilities/mail");
 
 module.exports = async (trade, user) => {
   // Create correct database query, based on user role in trade
@@ -46,9 +47,11 @@ module.exports = async (trade, user) => {
     if (!acceptQuery.modifiedCount) {
       return false;
     }
-    
-    // If trade was accepted, return true
-    return true;
+
+    // Return complete trade dataset
+    return await db
+      .collection("trades")
+      .findOne({ _id: new ObjectId(trade._id) });
   } catch (error) {
     console.log(error);
     return false;
