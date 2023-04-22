@@ -2,12 +2,26 @@
   <%- include("../partials/head.ejs") %>
 
   <body>
-    <%- include("../partials/header.ejs") %> <%-
+    <%- include("../partials/header.ejs") %> 
 
     <div id="content">
-    
+      <h1 style="font-size: 2rem; margin-bottom: 1rem">Hej <%= user.profile.firstName %>!</h1>
+      <p>Du har netop nu modtaget en ny handelsanmodning på Tradify.dk!</p>
+      <p>
+        Du kan se yderligere informationer vedrørende denne handel ved at trykke på nedenstående link.
+      </p>
+
+      <a
+        style="margin-top: 1rem; margin-bottom: 2rem; display:block;"
+        href="<%= process.env.URL_BASE_FRONTEND %>/trade/<%= data.id %>"
+        target="_blank"
+        >Se handel</a
+      >
+
+      <p style="margin-bottom:1rem;">Med venlige hilsner</p>
+      <p><i>Tradify Teamet</i></p>
     </div>
 
-    include("../partials/footer.ejs") %>
+    <%- include("../partials/footer.ejs") %>
   </body>
 </html>
