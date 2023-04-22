@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const compose = require("../../utilities/compose");
 const database = require("../../utilities/database");
 const roles = require("../../content/public/roles.json");
+const mail = require("../../utilities/mail");
 
 module.exports = async (req, res) => {
   const validatorErrors = validationResult(req);
@@ -112,8 +113,21 @@ module.exports = async (req, res) => {
     // Insert trade into database
     const tradeInsert = await db.collection("trades").insertOne(trade);
 
-    // TODO: Send email to: to user, and middleman user
+    if (to.settings.notifications.email) {
+      await mail.send("Du har modtaget en handel!", "trade_receive.ejs", to, {
+        id: tradeInsert.insertedId,
+      });
+    }
 
+    if (middleman && middleman.settings.notifications.email) {
+      await mail.send(
+        "Du har modtaget en handel!",
+        "trade_receive.ejs",
+        middleman,
+        { id: tradeInsert.insertedId }
+      );
+    }
+    
     // Return id of trade to user
     return res.json(
       compose.response(

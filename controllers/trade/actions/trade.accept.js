@@ -20,7 +20,8 @@ module.exports = async (req, res) => {
       .findOne({ _id: new ObjectId(req.params.id) });
 
     // Use actions to accept trade
-    if (!(await actions.trade.accept(trade, req.user))) {
+    const action = await actions.trade.accept(trade, req.user)
+    if (!action) {
       // Return error
       return res.json(
         compose.response(null, null, [
@@ -30,7 +31,7 @@ module.exports = async (req, res) => {
     }
 
     // Return response
-    return res.json(compose.response("Accepted trade", null, null));
+    return res.json(compose.response("Accepted trade", action, null));
   } catch (error) {
     console.log(error);
     // Return error

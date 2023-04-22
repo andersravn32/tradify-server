@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
   if (!validatorErrors.isEmpty()) {
     return res.json(compose.response(null, null, validatorErrors.array()));
   }
-  
+
   try {
     // Get database connection
     const db = database.get();
@@ -20,7 +20,8 @@ module.exports = async (req, res) => {
       .findOne({ _id: new ObjectId(req.params.id) });
 
     // Use actions to accept trade
-    if (!(await actions.trade.reject(trade, req.user))) {
+    const action = await actions.trade.reject(trade, req.user);
+    if (!action) {
       // Return error
       return res.json(
         compose.response(null, null, [
@@ -30,7 +31,7 @@ module.exports = async (req, res) => {
     }
 
     // Return response
-    return res.json(compose.response("Rejected trade", null, null));
+    return res.json(compose.response("Rejected trade", action, null));
   } catch (error) {
     console.log(error);
     // Return error

@@ -45,8 +45,10 @@ module.exports = async (trade, user) => {
       return false;
     }
 
-    // If trade was accepted, return true
-    return true;
+    // Return complete trade dataset
+    return await db
+      .collection("trades")
+      .findOne({ _id: new ObjectId(trade._id) });
   } catch (error) {
     console.log(error);
     return false;

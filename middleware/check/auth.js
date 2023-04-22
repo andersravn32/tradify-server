@@ -16,24 +16,13 @@ module.exports = async (req, res, next) => {
       process.env.JWT_AUTH
     );
 
-    // Get database connection
-    const db = database.get();
-
-    // Find user in database
-    const user = await db.collection("users").findOne({ uuid: token.user });
-    if (!user) {
-      // Return error
-      return res.json(
-        compose.response(null, null, [
-          { msg: "Failed to locate user", location: "user" },
-        ])
-      );
-    }
-    delete user._id;
-    delete user.password;
-
-    // Set user as request object
-    req.user = user;
+    // Set user as token data
+    req.user = {
+      uuid: token.user,
+      email: token.email,
+      identifier: token.identifier,
+      role: token.role,
+    };
 
     // Complete middleware
     next();
