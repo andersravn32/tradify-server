@@ -4,8 +4,10 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const http = require("http");
 
 const app = express();
+const server = http.createServer(app);
 
 const init = async () => {
   // Configure environment variables, loaded from either CI/CD or .env file
@@ -34,7 +36,7 @@ const init = async () => {
   app.use(require("./routes"));
 
   // Listen to port provided as environment variable
-  app.listen(process.env.PORT, () => {
+  server.listen(process.env.PORT, () => {
     !process.env.NODE_ENV ? console.log("Server is ready for requests") : null;
   });
 };
