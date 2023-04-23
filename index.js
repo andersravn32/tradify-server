@@ -5,11 +5,9 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const http = require("http");
-const { Server } = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
 
 const init = async () => {
   // Configure environment variables, loaded from either CI/CD or .env file
