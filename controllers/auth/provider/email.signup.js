@@ -154,21 +154,12 @@ module.exports = async (req, res) => {
     }
 
     // Send callback confirmation email to user
-    const mailResult = await mail.send(
+    mail.send(
       "Velkommen til Tradify!",
       "signup.ejs",
       user,
       { token: callbackToken }
     );
-
-    if (!mailResult) {
-      // Return error
-      return res.json(
-        compose.response(null, null, [
-          { msg: "Internal server error", location: "callbackEmail" },
-        ])
-      );
-    }
 
     // Remove password and mongodb id from user object
     delete user._id;

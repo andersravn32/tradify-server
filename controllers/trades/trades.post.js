@@ -114,13 +114,13 @@ module.exports = async (req, res) => {
     const tradeInsert = await db.collection("trades").insertOne(trade);
 
     if (to.settings.notifications.email) {
-      await mail.send("Du har modtaget en handel!", "trade_receive.ejs", to, {
+      mail.send("Du har modtaget en handel!", "trade_receive.ejs", to, {
         id: tradeInsert.insertedId,
       });
     }
 
     if (middleman && middleman.settings.notifications.email) {
-      await mail.send(
+      mail.send(
         "Du har modtaget en handel!",
         "trade_receive.ejs",
         middleman,
