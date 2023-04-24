@@ -66,7 +66,7 @@ module.exports = async (req, res) => {
     }
 
     // Ensure that trade has not started
-    if (trade.to.confirmed || trade.middleman.confirmed) {
+    if (!(trade.to.confirmed === 0) || !(trade.middleman.confirmed === 0)) {
       // If trade has started, and user is not an administrator, return error
       if (
         !(req.user.role.permissionLevel >= roles.administrator.permissionLevel)
