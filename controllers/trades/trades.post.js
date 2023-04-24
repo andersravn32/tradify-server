@@ -13,17 +13,17 @@ module.exports = async (req, res) => {
     from: {
       uuid: req.user.uuid,
       rating: null,
-      confirmed: true,
+      confirmed: 1,
     },
     to: {
       uuid: req.body.to.uuid,
       rating: null,
-      confirmed: false,
+      confirmed: 0,
     },
     middleman: {
       uuid: req.body.middleman.uuid,
       rating: null,
-      confirmed: false,
+      confirmed: 0,
     },
     title: req.body.title,
     description: req.body.description,

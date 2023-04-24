@@ -9,9 +9,9 @@ module.exports = async (trade, user, rating) => {
 
   // Ensure that all participants in the trade has confirmed
   if (
-    (trade.from.uuid && !trade.from.confirmed) ||
-    (trade.to.uuid && !trade.to.confirmed) ||
-    (trade.middleman.uuid && !trade.middleman.confirmed)
+    (trade.from.uuid && !(trade.from.confirmed === 1)) ||
+    (trade.to.uuid && !(trade.to.confirmed === 1)) ||
+    (trade.middleman.uuid && !(trade.middleman.confirmed === 1))
   ) {
     return false;
   }
