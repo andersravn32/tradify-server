@@ -53,8 +53,6 @@ module.exports = async (req, res) => {
       })
       .toArray();
 
-      console.log(user)
-
     // Return user object
     return res.json(compose.response(null, user, null));
   } catch (error) {
