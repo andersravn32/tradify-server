@@ -16,8 +16,6 @@ module.exports = async (req, res) => {
     const user = await db
       .collection("users")
       .findOne({ uuid: req.params.uuid });
-    delete user.password;
-    delete user._id;
 
     // If no user was found, return error
     if (!user) {
@@ -30,6 +28,9 @@ module.exports = async (req, res) => {
         ])
       );
     }
+
+    delete user.password;
+    delete user._id;
 
     // Append user trades
     user.trades = await db
