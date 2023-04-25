@@ -31,12 +31,6 @@ module.exports = async (req, res) => {
       );
     }
 
-    // If request query ignoreTrades is present
-    if (req.query.ignoreTrades) {
-      // Return user object
-      return res.json(compose.response(null, user, null));
-    }
-
     // Append user trades
     user.trades = await db
       .collection("trades")
@@ -44,19 +38,21 @@ module.exports = async (req, res) => {
         $or: [
           {
             "from.uuid": req.params.uuid,
-            "from.confirmed": true,
+            "from.confirmed": 1,
           },
           {
             "to.uuid": req.params.uuid,
-            "to.confirmed": true,
+            "to.confirmed": 1,
           },
           {
             "middleman.uuid": req.params.uuid,
-            "middleman.confirmed": true,
+            "middleman.confirmed": 1,
           },
         ],
       })
       .toArray();
+
+      console.log(user)
 
     // Return user object
     return res.json(compose.response(null, user, null));
