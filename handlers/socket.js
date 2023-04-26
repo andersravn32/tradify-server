@@ -21,7 +21,7 @@ module.exports = async (socket) => {
       .emit("trade-user-message", { uuid: e.uuid, message: e.message });
   }); */
 
-  socket.on("disconnect", () => {
-    console.log(sockets);
+  socket.on("disconnect", (e) => {
+    console.log(e)
   });
 };
