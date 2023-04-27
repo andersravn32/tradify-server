@@ -8,6 +8,7 @@ const http = require("http");
 
 const app = express();
 const server = http.createServer(app);
+const { Server } = require("socket.io");
 
 const init = async () => {
   // Configure environment variables, loaded from either CI/CD or .env file
@@ -34,6 +35,15 @@ const init = async () => {
 
   // Add main router
   app.use(require("./routes"));
+
+  // Add Socket.io server instance
+  const io = new Server(server, {
+    cors: {
+      origin: "*",
+    },
+  });
+
+  io.on("connection", require("./handlers/socket"));
 
   // Listen to port provided as environment variable
   server.listen(process.env.PORT, () => {

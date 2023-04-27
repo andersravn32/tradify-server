@@ -9,21 +9,21 @@ module.exports = async (trade, user) => {
   // User has from role in trade
   if (user.uuid == trade.from.uuid && !trade.from.confirmed) {
     query = {
-      "from.confirmed": true,
+      "from.confirmed": 1,
     };
   }
 
   // User has to role in trade
   if (user.uuid == trade.to.uuid && !trade.to.confirmed) {
     query = {
-      "to.confirmed": true,
+      "to.confirmed": 1,
     };
   }
 
   // User has middleman role in trade
   if (user.uuid == trade.middleman.uuid && !trade.middleman.confirmed) {
     query = {
-      "middleman.confirmed": true,
+      "middleman.confirmed": 1,
     };
   }
 

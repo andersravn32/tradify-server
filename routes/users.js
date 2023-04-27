@@ -7,7 +7,6 @@ const check = require("../middleware/check");
 router.get(
   "/:identifier",
   check.auth,
-  param("identifier").isAlpha(),
   require("../controllers/users/users.get")
 );
 

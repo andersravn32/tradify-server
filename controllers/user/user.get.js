@@ -16,8 +16,6 @@ module.exports = async (req, res) => {
     const user = await db
       .collection("users")
       .findOne({ uuid: req.params.uuid });
-    delete user.password;
-    delete user._id;
 
     // If no user was found, return error
     if (!user) {
@@ -31,11 +29,8 @@ module.exports = async (req, res) => {
       );
     }
 
-    // If request query ignoreTrades is present
-    if (req.query.ignoreTrades) {
-      // Return user object
-      return res.json(compose.response(null, user, null));
-    }
+    delete user.password;
+    delete user._id;
 
     // Append user trades
     user.trades = await db
@@ -44,15 +39,15 @@ module.exports = async (req, res) => {
         $or: [
           {
             "from.uuid": req.params.uuid,
-            "from.confirmed": true,
+            "from.confirmed": 1,
           },
           {
             "to.uuid": req.params.uuid,
-            "to.confirmed": true,
+            "to.confirmed": 1,
           },
           {
             "middleman.uuid": req.params.uuid,
-            "middleman.confirmed": true,
+            "middleman.confirmed": 1,
           },
         ],
       })
