@@ -2,26 +2,31 @@ const sockets = [];
 
 module.exports = async (socket) => {
   socket.on("user-handshake", (e) => {
-    console.log(e)
+    // Join own personal room for others to emit to
+    socket.join(e.uuid);
+
+    socket.emit("user-handshake", {
+      uuid: e.uuid,
+    });
   });
 
-/*   socket.on("trade-join", (e) => {
-    socket.join(e.trade);
-    socket.to(e.trade).emit("trade-user-join", { uuid: e.uuid });
+  socket.on("user-disconnect", (e) => {
+    // Leave own personal room
+    socket.leave(e.uuid);
+
+    socket.emit("user-disconnect", {
+      uuid: e.uuid,
+    });
   });
 
-  socket.on("trade-leave", (e) => {
-    socket.leave(e.trade);
-    socket.to(e.trade).emit("trade-user-join", { uuid: e.uuid });
-  });
-
-  socket.on("trade-message", (e) => {
-    socket
-      .to(e.trade)
-      .emit("trade-user-message", { uuid: e.uuid, message: e.message });
-  }); */
+  socket.on("user-message", (e) => {
+    socket.to(e.uuid).emit("user-message", {
+      uuid: e.uuid,
+      message: e.message
+    })
+  })
 
   socket.on("disconnect", (e) => {
-    console.log(e)
+    console.log(e);
   });
 };
